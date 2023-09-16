@@ -1,0 +1,20 @@
+.bucket-box{
+  width: 140px;
+  height: 180px;
+  position: relative;
+  padding: 10px;
+
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.bucket-content {
+  height: 100%;
+  width: 100%;
+  border: 5px double #ccc;
+  color: #ccc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+}

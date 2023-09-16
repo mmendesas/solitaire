@@ -4,6 +4,7 @@ import './App.css';
 import { Card, CardProps } from './components/Card';
 import { suits } from './utils';
 import { CardList } from './components/CardList';
+import { BucketBox } from './components/BucketBox';
 
 const cards: CardProps[] = suits.map((suit, idx) => ({
   suit,
@@ -13,13 +14,22 @@ const cards: CardProps[] = suits.map((suit, idx) => ({
 }));
 
 function App() {
-  const [list, setList] = useState(cards);
+  const [list] = useState(cards);
   const [current, setCurrent] = useState(cards[0]);
 
   console.log(list.length);
 
   return (
     <div className="center">
+      <BucketBox
+        bucket={{
+          id: '',
+          suit: suits[0],
+          cards: [],
+          done: false,
+        }}
+      />
+
       <Card {...current} />
       <CardList cards={list} />
       <CardList cards={[]} />
