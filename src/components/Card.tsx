@@ -1,13 +1,20 @@
 import './Card.css';
 
-interface Props {
+export interface CardProps {
   suit: string;
   value: string;
   color?: string;
   flip?: boolean;
+  children: React.ReactNode;
 }
 
-export const Card: React.FC<Props> = ({ suit, value, flip, color = 'red' }) => {
+export const Card: React.FC<CardProps> = ({
+  suit,
+  value,
+  flip,
+  color = 'red',
+  children,
+}) => {
   return (
     <div className="card" style={{ color }}>
       {flip ? (
@@ -23,6 +30,7 @@ export const Card: React.FC<Props> = ({ suit, value, flip, color = 'red' }) => {
           </div>
         </div>
       )}
+      {children && <div className="card-child">{children}</div>}
     </div>
   );
 };

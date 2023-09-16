@@ -1,20 +1,27 @@
 import { useState } from 'react';
 import './App.css';
 
-import { Card } from './components/Card';
+import { Card, CardProps } from './components/Card';
 import { suits } from './utils';
+import { CardList } from './components/CardList';
+
+const cards: CardProps[] = suits.map((suit, idx) => ({
+  suit,
+  value: `${idx + 1}`,
+  color: 'black',
+  flip: true,
+}));
 
 function App() {
-  const [current, setCurrent] = useState({
-    suit: suits[2],
-    value: 'A',
-    color: 'red',
-    flip: true,
-  });
+  const [list, setList] = useState(cards);
+  const [current, setCurrent] = useState(cards[0]);
+
+  console.log(list.length);
 
   return (
     <div className="center">
       <Card {...current} />
+      <CardList cards={list} />
 
       <button
         onClick={() => {

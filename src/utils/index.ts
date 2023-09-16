@@ -1,1 +1,1 @@
-export const suits = ['♥', '♠', '◆', '♣'];
+export const suits = ['♥', '◆', '♠', '♣'];
