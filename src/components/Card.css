@@ -1,8 +1,10 @@
 .card {
   width: 120px;
+  height: 160px;
 }
 
 .card__content {
+  height: 100%;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background-color: #eee;
@@ -34,4 +36,14 @@
   position: relative;
   top: -12px;
   font-size: 6rem;
+}
+
+.card--flipped {
+  height: 100%;
+  width: 100%;
+
+  background: linear-gradient(135deg, #0dc1f0 0%, #0470dc 100%);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 5px solid #ccc;
 }

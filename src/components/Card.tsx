@@ -1,21 +1,28 @@
 import './Card.css';
 
-import { suits } from '../utils';
+interface Props {
+  suit: string;
+  value: string;
+  color?: string;
+  flip?: boolean;
+}
 
-export const Card = () => {
-  const suit = suits[0];
-
+export const Card: React.FC<Props> = ({ suit, value, flip, color = 'red' }) => {
   return (
-    <div className="card" style={{ color: 'red' }}>
-      <div className="card__content">
-        <div className="card__header">
-          <span>A</span>
-          <span>{suit}</span>
+    <div className="card" style={{ color }}>
+      {flip ? (
+        <div className="card--flipped" />
+      ) : (
+        <div className="card__content">
+          <div className="card__header">
+            <span>{value}</span>
+            <span>{suit}</span>
+          </div>
+          <div className="card__body">
+            <span className="icon">{suit}</span>
+          </div>
         </div>
-        <div className="card__body">
-          <span className="icon">{suit}</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
