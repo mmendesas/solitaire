@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const CardList: React.FC<Props> = ({ cards }) => {
-  if (!cards.length) return <div>empty card</div>;
+  if (!cards.length) return <Card empty />;
 
   const [first, ...rest] = cards;
 

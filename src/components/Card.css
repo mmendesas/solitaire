@@ -48,6 +48,13 @@
   border: 5px solid #ccc;
 }
 
+.card--empty{
+  min-height: 160px;
+  width: 120px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
 .card-child {
   position: relative;
   width: 100%;

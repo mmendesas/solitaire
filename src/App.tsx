@@ -22,6 +22,7 @@ function App() {
     <div className="center">
       <Card {...current} />
       <CardList cards={list} />
+      <CardList cards={[]} />
 
       <button
         onClick={() => {
