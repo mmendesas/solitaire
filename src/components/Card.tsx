@@ -23,7 +23,7 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CARD,
-    item: {},
+    item: { card: 'info', test: 123 },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
