@@ -1,4 +1,8 @@
+import { useDrag } from 'react-dnd';
+
 import './Card.css';
+import { ItemTypes } from '../utils/constants';
+import { useMemo } from 'react';
 
 export interface CardProps {
   suit?: string;
@@ -17,8 +21,25 @@ export const Card: React.FC<CardProps> = ({
   color = 'red',
   children,
 }) => {
+  const [{ isDragging }, dragRef] = useDrag(() => ({
+    type: ItemTypes.CARD,
+    item: {},
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
+  const containerStyle = useMemo(
+    () => ({
+      opacity: isDragging ? 0 : 1,
+      cursor: 'pointer',
+      color,
+    }),
+    [isDragging, color]
+  );
+
   return (
-    <div className="card" style={{ color }}>
+    <div ref={dragRef} className="card" style={containerStyle}>
       {empty && <div className="card--empty" />}
       {!empty && (
         <>

@@ -1,5 +1,10 @@
+export type Suit = {
+  color: 'black' | 'red';
+  value: string;
+};
+
 export type Card = {
-  suit: string;
+  suit: Suit;
   value: string;
   flip: boolean;
   color: 'black' | 'red';

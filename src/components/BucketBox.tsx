@@ -1,4 +1,4 @@
-import { Bucket } from '../types';
+import { Bucket } from '../utils/types';
 
 import './BucketBox.css';
 
