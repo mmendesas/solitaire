@@ -1,15 +1,17 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
-import { Bucket } from '../utils/types';
+import { Bucket, Lane } from '../utils/types';
 import { gameReducer } from './reducer';
 
 type GameState = {
   buckets: { [key: string]: Bucket };
+  lanes: { [key: string]: Lane };
   loadGame: () => void;
 };
 
 const initialState: GameState = {
   buckets: {},
+  lanes: {},
   loadGame: () => {},
 };
 

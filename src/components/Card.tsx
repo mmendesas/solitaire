@@ -3,17 +3,15 @@ import { useDrag } from 'react-dnd';
 import './Card.css';
 import { ItemTypes } from '../utils/constants';
 import { useMemo } from 'react';
+import { Card } from '../utils/types';
 
-export interface CardProps {
-  suit?: string;
-  value?: string;
-  color?: string;
-  flip?: boolean;
-  empty?: boolean;
+export interface Props {
   children?: React.ReactNode;
 }
 
-export const Card: React.FC<CardProps> = ({
+type CardProps = Card & Props;
+
+export const CardComp: React.FC<CardProps> = ({
   suit,
   value,
   flip,

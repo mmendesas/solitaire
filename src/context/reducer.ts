@@ -1,10 +1,13 @@
-import { setupBuckets } from '../utils';
+import { setupBuckets, setupLanes } from '../utils';
 
 const loadGameAction = (state, action) => {
   const buckets = setupBuckets();
+  const lanes = setupLanes();
+
   return {
     ...state,
     buckets,
+    lanes,
   };
 };
 

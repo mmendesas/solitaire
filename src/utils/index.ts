@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Bucket } from './types';
+import { Bucket, Card, Lane } from './types';
 
 export const suits = ['♥', '◆', '♠', '♣'];
 export const baseDeck = [
@@ -34,4 +34,27 @@ export function setupBuckets() {
   });
 
   return buckets;
+}
+
+export function setupLanes() {
+  const lanes: { [key: string]: Lane } = {};
+
+  const cards: Card[] = Array.from({ length: 4 }).map((_, idx) => ({
+    suit: suits[0],
+    value: baseDeck[idx],
+    flip: true,
+    color: 'red',
+  }));
+
+  Array.from({ length: 7 }).forEach((_, idx) => {
+    const id = uuidv4();
+
+    lanes[id] = {
+      id,
+      name: `lane-0${idx}`,
+      cards: cards,
+    };
+  });
+
+  return lanes;
 }

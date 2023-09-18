@@ -4,10 +4,11 @@ export type Suit = {
 };
 
 export type Card = {
-  suit: Suit;
-  value: string;
-  flip: boolean;
-  color: 'black' | 'red';
+  suit?: Suit;
+  value?: string;
+  flip?: boolean;
+  color?: 'black' | 'red';
+  empty?: boolean;
 };
 
 export type Bucket = {
@@ -15,4 +16,10 @@ export type Bucket = {
   suit: string;
   cards: Card[];
   done: boolean;
+};
+
+export type Lane = {
+  id: string;
+  name: string;
+  cards: Card[];
 };

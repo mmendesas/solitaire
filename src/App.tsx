@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-import { Card, CardProps } from './components/Card';
+import { CardComp, CardProps } from './components/Card';
 import { suits } from './utils';
 import { CardList } from './components/CardList';
 import { BucketBox } from './components/BucketBox';
@@ -16,11 +16,13 @@ const cards: CardProps[] = suits.map((suit, idx) => ({
 }));
 
 function App() {
-  const { buckets, loadGame } = useGame();
+  const { buckets, lanes, loadGame } = useGame();
 
   useEffect(() => {
     loadGame();
   }, []);
+
+  console.log('asdfds', lanes);
 
   const [list] = useState(cards);
   const [current, setCurrent] = useState(cards[0]);
@@ -33,16 +35,15 @@ function App() {
           <div className="bucket-container">
             {Object.values(buckets).map(
               (bucket: Bucket): JSX.Element => (
-                <BucketBox bucket={bucket} />
+                <BucketBox key={bucket.id} bucket={bucket} />
               )
             )}
           </div>
         </section>
         <section className="content">
-          <Card {...current} />
-
-          <CardList cards={list} />
-          <CardList cards={[]} />
+          {Object.entries(lanes).map(([id, lane]) => {
+            return <CardList key={id} cards={lane.cards} />;
+          })}
         </section>
       </main>
     </div>
