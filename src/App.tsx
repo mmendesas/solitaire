@@ -2,9 +2,10 @@ import { useState } from 'react';
 import './App.css';
 
 import { Card, CardProps } from './components/Card';
-import { suits } from './utils';
+import { setupBuckets, suits } from './utils';
 import { CardList } from './components/CardList';
 import { BucketBox } from './components/BucketBox';
+import { Bucket } from './utils/types';
 
 const cards: CardProps[] = suits.map((suit, idx) => ({
   suit,
@@ -13,22 +14,19 @@ const cards: CardProps[] = suits.map((suit, idx) => ({
   flip: true,
 }));
 
+const buckets = setupBuckets();
+
 function App() {
   const [list] = useState(cards);
   const [current, setCurrent] = useState(cards[0]);
 
-  console.log(list.length);
-
   return (
     <div className="center">
-      <BucketBox
-        bucket={{
-          id: '',
-          suit: suits[0],
-          cards: [],
-          done: false,
-        }}
-      />
+      {Object.values(buckets).map(
+        (bucket: Bucket): JSX.Element => (
+          <BucketBox bucket={bucket} />
+        )
+      )}
 
       <Card {...current} />
       <CardList cards={list} />
