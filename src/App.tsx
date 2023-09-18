@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 import { Card, CardProps } from './components/Card';
-import { setupBuckets, suits } from './utils';
+import { suits } from './utils';
 import { CardList } from './components/CardList';
 import { BucketBox } from './components/BucketBox';
 import { Bucket } from './utils/types';
+import { useGame } from './context/GameContext';
 
 const cards: CardProps[] = suits.map((suit, idx) => ({
   suit,
@@ -14,9 +15,13 @@ const cards: CardProps[] = suits.map((suit, idx) => ({
   flip: true,
 }));
 
-const buckets = setupBuckets();
-
 function App() {
+  const { buckets, loadGame } = useGame();
+
+  useEffect(() => {
+    loadGame();
+  }, []);
+
   const [list] = useState(cards);
   const [current, setCurrent] = useState(cards[0]);
 
