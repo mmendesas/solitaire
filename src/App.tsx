@@ -22,23 +22,24 @@ function App() {
 
   return (
     <div className="center">
-      {Object.values(buckets).map(
-        (bucket: Bucket): JSX.Element => (
-          <BucketBox bucket={bucket} />
-        )
-      )}
+      <main>
+        <section className="header">
+          <div>source box</div>
+          <div className="bucket-container">
+            {Object.values(buckets).map(
+              (bucket: Bucket): JSX.Element => (
+                <BucketBox bucket={bucket} />
+              )
+            )}
+          </div>
+        </section>
+        <section className="content">
+          <Card {...current} />
 
-      <Card {...current} />
-      <CardList cards={list} />
-      <CardList cards={[]} />
-
-      <button
-        onClick={() => {
-          setCurrent((prev) => ({ ...prev, flip: !prev.flip }));
-        }}
-      >
-        Flip
-      </button>
+          <CardList cards={list} />
+          <CardList cards={[]} />
+        </section>
+      </main>
     </div>
   );
 }
