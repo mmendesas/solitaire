@@ -13,6 +13,8 @@ function App() {
     loadGame();
   }, []);
 
+  console.log(lanes);
+
   return (
     <div className="center">
       <main>

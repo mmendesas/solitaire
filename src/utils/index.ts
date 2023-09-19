@@ -56,7 +56,19 @@ export function buildDeck(): Card[] {
     fullDeck.push(...cardsBySuit);
   }
 
-  return fullDeck;
+  return shuffle(fullDeck);
+}
+
+export function shuffle(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const idx = Math.floor(Math.random() * i);
+
+    let temp = arr[idx];
+    arr[idx] = arr[i];
+    arr[i] = temp;
+  }
+
+  return arr;
 }
 
 export function setupLanes() {
