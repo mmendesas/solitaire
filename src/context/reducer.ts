@@ -1,6 +1,17 @@
 import { setupBuckets, setupLanes } from '../utils';
 import { Card } from '../utils/types';
 
+function flipLastItem(lane) {
+  const isBaseLane = lane.name.startsWith('lane');
+  if (!isBaseLane) return;
+
+  // flip last item
+  const last = lane.cards.length - 1;
+  if (last > -1) {
+    lane.cards[last].flip = false;
+  }
+}
+
 const actionLoadGame = (state, action) => {
   const buckets = setupBuckets();
   const lanes = setupLanes();
@@ -38,12 +49,12 @@ const actionRemoveItemFromLane = (state, action) => {
 
   state.lanes[item.laneID].cards = cards.slice(0, idx);
 
+  flipLastItem(state.lanes[item.laneID]);
+
   return { ...state };
 };
 
 const actionMoveCardsBetweenLanes = (state, action) => {
-  console.log('action move cards', action.payload);
-
   const { source, target } = action.payload;
 
   // pick items from source list
