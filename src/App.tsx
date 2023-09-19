@@ -6,9 +6,10 @@ import { BucketBox } from './components/BucketBox';
 import { SourceBox } from './components/SourceBox';
 import { useGame } from './context/GameContext';
 import { Bucket } from './utils/types';
+import { Clock } from './components/Clock';
 
 function App() {
-  const { buckets, lanes, loadGame, resetGame } = useGame();
+  const { buckets, lanes, loadGame, resetGame, config } = useGame();
 
   useEffect(() => {
     loadGame();
@@ -18,6 +19,7 @@ function App() {
     <div className="center">
       <main>
         <div className="hud">
+          <Clock key={config.remainID} />
           <button onClick={resetGame}>Reset</button>
         </div>
         <section className="header">

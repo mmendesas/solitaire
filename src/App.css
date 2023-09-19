@@ -57,4 +57,8 @@ main {
 
 .hud {
   align-self: flex-end;
+  
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
