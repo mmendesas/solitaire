@@ -1,7 +1,7 @@
 import { setupBuckets, setupLanes } from '../utils';
 import { Card } from '../utils/types';
 
-const loadGameAction = (state, action) => {
+const actionLoadGame = (state, action) => {
   const buckets = setupBuckets();
   const lanes = setupLanes();
 
@@ -12,7 +12,7 @@ const loadGameAction = (state, action) => {
   };
 };
 
-const addToBucketAction = (state, action) => {
+const actionAddToBucket = (state, action) => {
   const { bucketID, item } = action.payload;
   const bucket = state.buckets[bucketID];
 
@@ -28,7 +28,7 @@ const addToBucketAction = (state, action) => {
   return { ...state };
 };
 
-const removeItemFromLaneAction = (state, action) => {
+const actionRemoveItemFromLane = (state, action) => {
   const { item } = action.payload;
 
   const cards = state.lanes[item.laneID].cards;
@@ -66,11 +66,11 @@ const actionMoveCardsBetweenLanes = (state, action) => {
 export const gameReducer = (state, action) => {
   switch (action.type) {
     case 'load_game':
-      return loadGameAction(state, action);
+      return actionLoadGame(state, action);
     case 'add_to_bucket':
-      return addToBucketAction(state, action);
+      return actionAddToBucket(state, action);
     case 'remove_item_from_lane':
-      return removeItemFromLaneAction(state, action);
+      return actionRemoveItemFromLane(state, action);
     case 'move_cards_between_lanes':
       return actionMoveCardsBetweenLanes(state, action);
     default:
