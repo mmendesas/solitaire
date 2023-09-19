@@ -21,6 +21,11 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    canDrag: () => {
+      if (!data.laneID) return false; // do not move from bucket
+
+      return true;
+    },
     end: (item, monitor) => {
       const droppedItem = monitor.getDropResult();
       if (droppedItem) {
@@ -33,13 +38,16 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
     () => ({
       opacity: isDragging ? 0 : 1,
       cursor: 'pointer',
-      color: suit?.color,
     }),
     [isDragging]
   );
 
   return (
-    <div ref={dragRef} className="card" style={containerStyle}>
+    <div
+      ref={dragRef}
+      className="card"
+      style={{ ...containerStyle, color: suit?.color }}
+    >
       {empty && <div className="card--empty" />}
       {!empty && (
         <>
