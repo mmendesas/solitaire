@@ -5,6 +5,7 @@ import { ItemTypes } from '../utils/constants';
 import { useMemo } from 'react';
 import { Card } from '../utils/types';
 import { useGame } from '../context/GameContext';
+import { isParentChildValid } from '../utils';
 
 export interface Props {
   data: Card;
@@ -12,7 +13,7 @@ export interface Props {
 }
 
 export const CardComponent: React.FC<Props> = ({ data, children }) => {
-  const { removeItemFromLane } = useGame();
+  const { removeItemFromLane, moveCardsBetweenLanes } = useGame();
   const { suit, value, flip, empty } = data;
 
   // handle dragging action
@@ -38,8 +39,17 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
   // handle drop action of item as child of current card
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: ItemTypes.CARD,
-    canDrop: () => {
-      return true;
+    canDrop: (item: Card) => {
+      const parent = data;
+      const sameValue = value === item.value;
+      const canDrop = isParentChildValid(parent, item);
+
+      return !sameValue && canDrop;
+    },
+    drop: (item) => {
+      moveCardsBetweenLanes({ source: item, target: data });
+
+      return { action: 'drop-to-card', item };
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),

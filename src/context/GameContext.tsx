@@ -50,6 +50,11 @@ export function GameProvider({ children }: ProviderProps) {
     dispatch({ type: 'remove_item_from_lane', payload });
   };
 
+  const moveCardsBetweenLanes = ({ source, target }) => {
+    const payload = { source, target };
+    dispatch({ type: 'move_cards_between_lanes', payload });
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -57,6 +62,7 @@ export function GameProvider({ children }: ProviderProps) {
         loadGame,
         addItemToBucket,
         removeItemFromLane,
+        moveCardsBetweenLanes,
       }}
     >
       {children}

@@ -93,3 +93,13 @@ export function setupLanes() {
 
   return lanes;
 }
+
+export function isParentChildValid(parent: Card, child: Card) {
+  const parentIdx = baseDeck.indexOf(parent.value as string);
+  const childIdx = baseDeck.indexOf(child.value as string);
+
+  const diffColor = parent.suit?.color !== child.suit?.color;
+  const dist = Math.abs(parentIdx - childIdx);
+
+  return parentIdx > childIdx && dist === 1 && diffColor;
+}

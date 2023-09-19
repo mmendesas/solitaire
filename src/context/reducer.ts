@@ -41,6 +41,28 @@ const removeItemFromLaneAction = (state, action) => {
   return { ...state };
 };
 
+const actionMoveCardsBetweenLanes = (state, action) => {
+  console.log('action move cards', action.payload);
+
+  const { source, target } = action.payload;
+
+  // pick items from source list
+  const sourceCards = state.lanes[source.laneID].cards;
+  const sourceIdx = sourceCards.findIndex((card) => {
+    return card.value === source.value && card.suit.value === source.suit.value;
+  });
+
+  const cardsToSend = sourceCards.slice(sourceIdx);
+
+  // move itens to target list
+  const targetCards = state.lanes[target.laneID].cards;
+  cardsToSend.forEach((card) => {
+    targetCards.push({ ...card, flip: false, laneID: target.laneID });
+  });
+
+  return { ...state };
+};
+
 export const gameReducer = (state, action) => {
   switch (action.type) {
     case 'load_game':
@@ -49,6 +71,8 @@ export const gameReducer = (state, action) => {
       return addToBucketAction(state, action);
     case 'remove_item_from_lane':
       return removeItemFromLaneAction(state, action);
+    case 'move_cards_between_lanes':
+      return actionMoveCardsBetweenLanes(state, action);
     default:
       return state;
   }
