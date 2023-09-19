@@ -16,6 +16,8 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
   const { removeItemFromLane, moveCardsBetweenLanes } = useGame();
   const { suit, value, flip, empty } = data;
 
+  const isDiamond = suit?.value === '◆';
+
   // handle dragging action
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CARD,
@@ -102,7 +104,9 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
                 <span>{suit?.value}</span>
               </div>
               <div className="card__body">
-                <span className="icon">{suit?.value}</span>
+                <span className={`icon ${isDiamond ? 'diamond' : ''} `}>
+                  {suit?.value}
+                </span>
               </div>
             </div>
           )}

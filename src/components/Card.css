@@ -67,3 +67,8 @@
   top: -70%;
   height: 70%;
 }
+
+/* fix diamond position */
+.diamond {
+  top: -30px !important;
+}
