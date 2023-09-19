@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Bucket, Card, Lane } from './types';
+import { Bucket, Card, Lane, Suit } from './types';
 
-export const suits = ['♥', '◆', '♠', '♣'];
+export const baseSuits = ['♥', '◆', '♠', '♣'];
 export const baseDeck = [
   'A',
   '2',
@@ -19,10 +19,17 @@ export const baseDeck = [
   'K',
 ];
 
+export const suits: Suit[] = [
+  { value: '♥', color: 'red' },
+  { value: '◆', color: 'red' },
+  { value: '♠', color: 'black' },
+  { value: '♣', color: 'black' },
+];
+
 export function setupBuckets() {
   const buckets: { [key: string]: Bucket } = {};
 
-  suits.forEach((suit: string): void => {
+  baseSuits.forEach((suit: string): void => {
     const id = uuidv4();
 
     buckets[id] = {
@@ -36,23 +43,35 @@ export function setupBuckets() {
   return buckets;
 }
 
+export function buildDeck(): Card[] {
+  const fullDeck = [];
+
+  for (const suit of suits) {
+    const cardsBySuit = baseDeck.map((value) => ({
+      suit: suit,
+      value,
+      flip: false,
+    }));
+
+    fullDeck.push(...cardsBySuit);
+  }
+
+  return fullDeck;
+}
+
 export function setupLanes() {
   const lanes: { [key: string]: Lane } = {};
-
-  const cards: Card[] = Array.from({ length: 4 }).map((_, idx) => ({
-    suit: suits[0],
-    value: baseDeck[idx],
-    flip: true,
-    color: 'red',
-  }));
+  const deck = buildDeck();
 
   Array.from({ length: 7 }).forEach((_, idx) => {
     const id = uuidv4();
+    const itemsByLane = idx + 1;
+    const chunk = deck.splice(0, itemsByLane);
 
     lanes[id] = {
       id,
       name: `lane-0${idx}`,
-      cards: cards,
+      cards: chunk,
     };
   });
 

@@ -31,7 +31,7 @@ export const CardComp: React.FC<CardProps> = ({
     () => ({
       opacity: isDragging ? 0 : 1,
       cursor: 'pointer',
-      color,
+      color: suit?.color,
     }),
     [isDragging, color]
   );
@@ -47,10 +47,10 @@ export const CardComp: React.FC<CardProps> = ({
             <div className="card__content">
               <div className="card__header">
                 <span>{value}</span>
-                <span>{suit}</span>
+                <span>{suit?.value}</span>
               </div>
               <div className="card__body">
-                <span className="icon">{suit}</span>
+                <span className="icon">{suit?.value}</span>
               </div>
             </div>
           )}

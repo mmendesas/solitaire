@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 import { CardComp, CardProps } from './components/Card';
-import { suits } from './utils';
+import { baseSuits } from './utils';
 import { CardList } from './components/CardList';
 import { BucketBox } from './components/BucketBox';
 import { Bucket } from './utils/types';
 import { useGame } from './context/GameContext';
 
-const cards: CardProps[] = suits.map((suit, idx) => ({
+const cards: CardProps[] = baseSuits.map((suit, idx) => ({
   suit,
   value: `${idx + 1}`,
   color: 'black',
@@ -21,8 +21,6 @@ function App() {
   useEffect(() => {
     loadGame();
   }, []);
-
-  console.log('asdfds', lanes);
 
   const [list] = useState(cards);
   const [current, setCurrent] = useState(cards[0]);
