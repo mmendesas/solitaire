@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardComp } from './Card';
+import { CardComponent } from './Card';
 import { Card } from '../utils/types';
 
 interface Props {
@@ -8,14 +8,14 @@ interface Props {
 }
 
 export const CardList: React.FC<Props> = ({ cards }) => {
-  if (!cards.length) return <CardComp empty />;
+  if (!cards.length) return <CardComponent data={{ empty: true }} />;
 
   const [first, ...rest] = cards;
 
   return (
-    <CardComp {...first}>
+    <CardComponent data={first}>
       {/*  */}
       {!!rest.length && <CardList cards={rest} />}
-    </CardComp>
+    </CardComponent>
   );
 };

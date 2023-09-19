@@ -4,26 +4,31 @@ import './Card.css';
 import { ItemTypes } from '../utils/constants';
 import { useMemo } from 'react';
 import { Card } from '../utils/types';
+import { useGame } from '../context/GameContext';
 
 export interface Props {
+  data: Card;
   children?: React.ReactNode;
 }
 
-type CardProps = Card & Props;
+export const CardComponent: React.FC<Props> = ({ data, children }) => {
+  const { removeItemFromLane } = useGame();
 
-export const CardComp: React.FC<CardProps> = ({
-  suit,
-  value,
-  flip,
-  empty,
-  children,
-}) => {
+  const { suit, value, flip, empty } = data;
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CARD,
-    item: { suit, value },
+    item: data,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    end: (item, monitor) => {
+      const droppedItem = monitor.getDropResult();
+      if (droppedItem) {
+        console.log('card end action', { item });
+
+        removeItemFromLane(item.laneID, item);
+      }
+    },
   }));
 
   const containerStyle = useMemo(

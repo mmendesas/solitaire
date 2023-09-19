@@ -27,7 +27,7 @@ function App() {
           </div>
         </section>
         <section className="content">
-          {Object.entries(lanes).map(([id, lane]) => {
+          {Object.entries(lanes).map(([id, lane]): JSX.Element => {
             return <CardList key={id} cards={lane.cards} />;
           })}
         </section>

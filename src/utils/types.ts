@@ -8,11 +8,12 @@ export type Card = {
   value?: string;
   flip?: boolean;
   empty?: boolean;
+  laneID?: string;
 };
 
 export type Bucket = {
   id: string;
-  suit: string;
+  suit: Suit;
   cards: Card[];
   done: boolean;
 };

@@ -18,3 +18,9 @@
   justify-content: center;
   font-size: 80px;
 }
+
+.bucket-top-item {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}

@@ -29,12 +29,12 @@ export const suits: Suit[] = [
 export function setupBuckets() {
   const buckets: { [key: string]: Bucket } = {};
 
-  baseSuits.forEach((suit: string): void => {
+  suits.forEach((suit: Suit): void => {
     const id = uuidv4();
 
     buckets[id] = {
       id,
-      suit: suit,
+      suit,
       cards: [],
       done: false,
     };
@@ -71,7 +71,10 @@ export function setupLanes() {
     lanes[id] = {
       id,
       name: `lane-0${idx}`,
-      cards: chunk,
+      cards: chunk.map((card) => ({
+        ...card,
+        laneID: id,
+      })),
     };
   });
 
