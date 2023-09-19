@@ -9,6 +9,7 @@ type GameState = {
   loadGame: () => void;
   addItemToBucket: (id: string, item: Card) => void;
   removeItemFromLane: (id: string, item: Card) => void;
+  moveCardsBetweenLanes: (data: { source: Card; target: Card }) => void;
 };
 
 const initialState: GameState = {
@@ -17,6 +18,7 @@ const initialState: GameState = {
   loadGame: () => {},
   addItemToBucket: () => {},
   removeItemFromLane: () => {},
+  moveCardsBetweenLanes: () => {},
 };
 
 const GameContext = createContext<GameState>(initialState);

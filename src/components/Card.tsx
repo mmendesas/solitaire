@@ -5,7 +5,7 @@ import { ItemTypes } from '../utils/constants';
 import { useMemo } from 'react';
 import { Card } from '../utils/types';
 import { useGame } from '../context/GameContext';
-import { isParentChildValid } from '../utils';
+import { isKingCard, isParentChildValid } from '../utils';
 
 export interface Props {
   data: Card;
@@ -25,6 +25,9 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
     }),
     canDrag: () => {
       if (!data.laneID) return false; // do not move from bucket
+      if (data.empty) return false; // do not move empty cards
+      if (data.flip) return false; // do not move flipped
+      if (!children) return true; // do not move leaf
 
       return true;
     },
@@ -40,6 +43,10 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
   const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
     accept: ItemTypes.CARD,
     canDrop: (item: Card) => {
+      if (data.empty) {
+        return isKingCard(item);
+      }
+
       const parent = data;
       const sameValue = value === item.value;
       const canDrop = isParentChildValid(parent, item);

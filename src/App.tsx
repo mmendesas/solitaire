@@ -28,7 +28,7 @@ function App() {
         </section>
         <section className="content">
           {Object.entries(lanes).map(([id, lane]): JSX.Element => {
-            return <CardList key={id} cards={lane.cards} />;
+            return <CardList key={id} laneID={id} cards={lane.cards} />;
           })}
         </section>
       </main>

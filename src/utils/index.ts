@@ -103,3 +103,7 @@ export function isParentChildValid(parent: Card, child: Card) {
 
   return parentIdx > childIdx && dist === 1 && diffColor;
 }
+
+export const isKingCard = (item: Card) => {
+  return item.value === baseDeck[baseDeck.length - 1];
+};
