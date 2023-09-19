@@ -1,4 +1,4 @@
-import { useDrag } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 
 import './Card.css';
 import { ItemTypes } from '../utils/constants';
@@ -13,8 +13,9 @@ export interface Props {
 
 export const CardComponent: React.FC<Props> = ({ data, children }) => {
   const { removeItemFromLane } = useGame();
-
   const { suit, value, flip, empty } = data;
+
+  // handle dragging action
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CARD,
     item: data,
@@ -34,12 +35,36 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
     },
   }));
 
+  // handle drop action of item as child of current card
+  const [{ isOver, canDrop }, dropRef] = useDrop(() => ({
+    accept: ItemTypes.CARD,
+    canDrop: () => {
+      return true;
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  }));
+
   const containerStyle = useMemo(
     () => ({
       opacity: isDragging ? 0 : 1,
       cursor: 'pointer',
     }),
     [isDragging]
+  );
+
+  const cardBucketStyle = useMemo(
+    () => ({
+      backgroundColor:
+        isOver && canDrop
+          ? 'rgba(0, 200, 200, 0.4)'
+          : isOver
+          ? 'rgba(0, 0, 0, 0.2)'
+          : '',
+    }),
+    [isOver, canDrop]
   );
 
   return (
@@ -67,6 +92,9 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
         </>
       )}
       {children && <div className="card-child">{children}</div>}
+      {!children && (
+        <div ref={dropRef} className="card-bucket" style={cardBucketStyle} />
+      )}
     </div>
   );
 };

@@ -61,3 +61,9 @@
   height: 100%;
   top: -70%;  
 }
+
+.card-bucket {
+  position: relative;
+  top: -70%;
+  height: 70%;
+}
