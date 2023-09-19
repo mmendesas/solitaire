@@ -13,18 +13,22 @@ const loadGameAction = (state, action) => {
 };
 
 const addToBucketAction = (state, action) => {
-  console.log('action >>> add to bucket', action.payload);
-
   const { bucketID, item } = action.payload;
   const bucket = state.buckets[bucketID];
-  bucket.cards.push({ ...item, laneID: null });
+
+  const idx = bucket.cards.findIndex((card: Card) => {
+    return card.value === item.value;
+  });
+
+  // do not duplicate item
+  if (idx === -1) {
+    bucket.cards.push({ ...item, laneID: null });
+  }
 
   return { ...state };
 };
 
 const removeItemFromLaneAction = (state, action) => {
-  console.log('action >>> remove item', action.payload);
-
   const { item } = action.payload;
 
   const cards = state.lanes[item.laneID].cards;

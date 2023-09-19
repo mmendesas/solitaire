@@ -24,9 +24,7 @@ export const CardComponent: React.FC<Props> = ({ data, children }) => {
     end: (item, monitor) => {
       const droppedItem = monitor.getDropResult();
       if (droppedItem) {
-        console.log('card end action', { item });
-
-        removeItemFromLane(item.laneID, item);
+        removeItemFromLane(item.laneID as string, item);
       }
     },
   }));
