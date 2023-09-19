@@ -50,7 +50,7 @@ export function buildDeck(): Card[] {
     const cardsBySuit = baseDeck.map((value) => ({
       suit: suit,
       value,
-      flip: false,
+      flip: true,
     }));
 
     fullDeck.push(...cardsBySuit);
@@ -59,11 +59,11 @@ export function buildDeck(): Card[] {
   return shuffle(fullDeck);
 }
 
-export function shuffle(arr) {
+export function shuffle(arr: any[]) {
   for (let i = 0; i < arr.length; i++) {
     const idx = Math.floor(Math.random() * i);
 
-    let temp = arr[idx];
+    const temp = arr[idx];
     arr[idx] = arr[i];
     arr[i] = temp;
   }
@@ -83,9 +83,10 @@ export function setupLanes() {
     lanes[id] = {
       id,
       name: `lane-0${idx}`,
-      cards: chunk.map((card) => ({
+      cards: chunk.map((card, i) => ({
         ...card,
         laneID: id,
+        flip: i !== itemsByLane - 1,
       })),
     };
   });
