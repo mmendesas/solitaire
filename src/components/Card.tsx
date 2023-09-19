@@ -16,12 +16,11 @@ export const CardComp: React.FC<CardProps> = ({
   value,
   flip,
   empty,
-  color = 'red',
   children,
 }) => {
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CARD,
-    item: { card: 'info', test: 123 },
+    item: { suit, value },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -33,7 +32,7 @@ export const CardComp: React.FC<CardProps> = ({
       cursor: 'pointer',
       color: suit?.color,
     }),
-    [isDragging, color]
+    [isDragging]
   );
 
   return (

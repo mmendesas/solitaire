@@ -1,19 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 
-import { CardComp, CardProps } from './components/Card';
-import { baseSuits } from './utils';
 import { CardList } from './components/CardList';
 import { BucketBox } from './components/BucketBox';
 import { Bucket } from './utils/types';
 import { useGame } from './context/GameContext';
-
-const cards: CardProps[] = baseSuits.map((suit, idx) => ({
-  suit,
-  value: `${idx + 1}`,
-  color: 'black',
-  flip: true,
-}));
 
 function App() {
   const { buckets, lanes, loadGame } = useGame();
@@ -21,9 +12,6 @@ function App() {
   useEffect(() => {
     loadGame();
   }, []);
-
-  const [list] = useState(cards);
-  const [current, setCurrent] = useState(cards[0]);
 
   return (
     <div className="center">

@@ -7,7 +7,6 @@ export type Card = {
   suit?: Suit;
   value?: string;
   flip?: boolean;
-  color?: 'black' | 'red';
   empty?: boolean;
 };
 
