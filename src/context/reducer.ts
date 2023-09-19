@@ -75,6 +75,21 @@ const actionMoveCardsBetweenLanes = (state, action) => {
 };
 
 const actionResetRemainCards = (state, action) => {
+  const { remainID, nextID } = state.config;
+
+  const seenLane = state.lanes[nextID];
+  const remainLane = state.lanes[remainID];
+
+  seenLane.cards.forEach((card: Card) => {
+    remainLane.cards.unshift({
+      ...card,
+      laneID: remainID,
+      flip: true,
+    });
+  });
+
+  seenLane.cards = [];
+
   return { ...state };
 };
 
