@@ -8,7 +8,7 @@ import { useGame } from './context/GameContext';
 import { Bucket } from './utils/types';
 
 function App() {
-  const { buckets, lanes, loadGame } = useGame();
+  const { buckets, lanes, loadGame, resetGame } = useGame();
 
   useEffect(() => {
     loadGame();
@@ -17,6 +17,9 @@ function App() {
   return (
     <div className="center">
       <main>
+        <div className="hud">
+          <button onClick={resetGame}>Reset</button>
+        </div>
         <section className="header">
           <div>
             <SourceBox />

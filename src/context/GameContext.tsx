@@ -12,6 +12,7 @@ type GameState = {
   removeItemFromLane: (id: string, item: Card) => void;
   moveCardsBetweenLanes: (data: { source: Card; target: Card }) => void;
   resetRemainCards: () => void;
+  resetGame: () => void;
 };
 
 const initialState: GameState = {
@@ -23,6 +24,7 @@ const initialState: GameState = {
   removeItemFromLane: () => {},
   moveCardsBetweenLanes: () => {},
   resetRemainCards: () => {},
+  resetGame: () => {},
 };
 
 const GameContext = createContext<GameState>(initialState);
@@ -56,13 +58,23 @@ export function GameProvider({ children }: ProviderProps) {
     dispatch({ type: 'remove_item_from_lane', payload });
   };
 
-  const moveCardsBetweenLanes = ({ source, target }) => {
+  const moveCardsBetweenLanes = ({
+    source,
+    target,
+  }: {
+    source: Card;
+    target: Card;
+  }) => {
     const payload = { source, target };
     dispatch({ type: 'move_cards_between_lanes', payload });
   };
 
   const resetRemainCards = () => {
     dispatch({ type: 'reset_remain_cards' });
+  };
+
+  const resetGame = () => {
+    dispatch({ type: 'reset_game' });
   };
 
   return (
@@ -74,6 +86,7 @@ export function GameProvider({ children }: ProviderProps) {
         removeItemFromLane,
         moveCardsBetweenLanes,
         resetRemainCards,
+        resetGame,
       }}
     >
       {children}

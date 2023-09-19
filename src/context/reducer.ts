@@ -96,6 +96,7 @@ const actionResetRemainCards = (state, action) => {
 export const gameReducer = (state, action) => {
   switch (action.type) {
     case 'load_game':
+    case 'reset_game':
       return actionLoadGame(state, action);
     case 'add_to_bucket':
       return actionAddToBucket(state, action);
