@@ -91,7 +91,27 @@ export function setupLanes() {
     };
   });
 
-  return lanes;
+  // add two more lanes to control remaining items
+  const remainID = uuidv4();
+  const nextID = uuidv4();
+
+  lanes[remainID] = {
+    id: remainID,
+    name: 'remaining',
+    cards: deck.map((card) => ({
+      ...card,
+      laneID: remainID,
+      flip: true,
+    })),
+  };
+
+  lanes[nextID] = {
+    id: nextID,
+    name: 'next-cards',
+    cards: [],
+  };
+
+  return { lanes, config: { remainID, nextID } };
 }
 
 export function isParentChildValid(parent: Card, child: Card) {

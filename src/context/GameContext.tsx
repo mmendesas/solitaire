@@ -6,19 +6,23 @@ import { gameReducer } from './reducer';
 type GameState = {
   buckets: { [key: string]: Bucket };
   lanes: { [key: string]: Lane };
+  config: { [key: string]: string };
   loadGame: () => void;
   addItemToBucket: (id: string, item: Card) => void;
   removeItemFromLane: (id: string, item: Card) => void;
   moveCardsBetweenLanes: (data: { source: Card; target: Card }) => void;
+  resetRemainCards: () => void;
 };
 
 const initialState: GameState = {
   buckets: {},
   lanes: {},
+  config: {},
   loadGame: () => {},
   addItemToBucket: () => {},
   removeItemFromLane: () => {},
   moveCardsBetweenLanes: () => {},
+  resetRemainCards: () => {},
 };
 
 const GameContext = createContext<GameState>(initialState);
@@ -57,6 +61,10 @@ export function GameProvider({ children }: ProviderProps) {
     dispatch({ type: 'move_cards_between_lanes', payload });
   };
 
+  const resetRemainCards = () => {
+    dispatch({ type: 'reset_remain_cards' });
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -65,6 +73,7 @@ export function GameProvider({ children }: ProviderProps) {
         addItemToBucket,
         removeItemFromLane,
         moveCardsBetweenLanes,
+        resetRemainCards,
       }}
     >
       {children}

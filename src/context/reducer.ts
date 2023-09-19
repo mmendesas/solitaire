@@ -1,7 +1,7 @@
 import { setupBuckets, setupLanes } from '../utils';
-import { Card } from '../utils/types';
+import { Card, Lane } from '../utils/types';
 
-function flipLastItem(lane) {
+function flipLastItem(lane: Lane) {
   const isBaseLane = lane.name.startsWith('lane');
   if (!isBaseLane) return;
 
@@ -14,12 +14,12 @@ function flipLastItem(lane) {
 
 const actionLoadGame = (state, action) => {
   const buckets = setupBuckets();
-  const lanes = setupLanes();
+  const lanesAndConfig = setupLanes();
 
   return {
     ...state,
+    ...lanesAndConfig,
     buckets,
-    lanes,
   };
 };
 
@@ -74,6 +74,10 @@ const actionMoveCardsBetweenLanes = (state, action) => {
   return { ...state };
 };
 
+const actionResetRemainCards = (state, action) => {
+  return { ...state };
+};
+
 export const gameReducer = (state, action) => {
   switch (action.type) {
     case 'load_game':
@@ -84,6 +88,8 @@ export const gameReducer = (state, action) => {
       return actionRemoveItemFromLane(state, action);
     case 'move_cards_between_lanes':
       return actionMoveCardsBetweenLanes(state, action);
+    case 'reset_remain_cards':
+      return actionResetRemainCards(state, action);
     default:
       return state;
   }

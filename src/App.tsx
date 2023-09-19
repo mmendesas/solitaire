@@ -3,8 +3,9 @@ import './App.css';
 
 import { CardList } from './components/CardList';
 import { BucketBox } from './components/BucketBox';
-import { Bucket } from './utils/types';
+import { SourceBox } from './components/SourceBox';
 import { useGame } from './context/GameContext';
+import { Bucket } from './utils/types';
 
 function App() {
   const { buckets, lanes, loadGame } = useGame();
@@ -17,7 +18,9 @@ function App() {
     <div className="center">
       <main>
         <section className="header">
-          <div>source box</div>
+          <div>
+            <SourceBox />
+          </div>
           <div className="bucket-container">
             {Object.values(buckets).map(
               (bucket: Bucket): JSX.Element => (
@@ -27,7 +30,10 @@ function App() {
           </div>
         </section>
         <section className="content">
-          {Object.entries(lanes).map(([id, lane]): JSX.Element => {
+          {Object.entries(lanes).map(([id, lane]): JSX.Element | undefined => {
+            const baseLanes = lane.name.startsWith('lane');
+            if (!baseLanes) return undefined;
+
             return <CardList key={id} laneID={id} cards={lane.cards} />;
           })}
         </section>
